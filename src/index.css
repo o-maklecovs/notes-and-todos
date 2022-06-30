@@ -5,3 +5,7 @@ body {
 .disabled {
   pointer-events: none;
 }
+.empty {
+  font-style: italic;
+  color: #aaa;
+}
