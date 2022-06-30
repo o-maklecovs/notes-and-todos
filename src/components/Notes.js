@@ -1,6 +1,11 @@
-const Notes = () => {
+import Button from './Button';
+
+const Notes = ({ onClickShowAddNote }) => {
   return (
-    <p>Notes</p>
+    <main>
+      <Button type='' text='Add' onClick={onClickShowAddNote} />
+      <p>Notes</p>
+    </main>
   );
 };
 

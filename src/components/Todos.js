@@ -1,6 +1,11 @@
-const Todos = () => {
+import Button from './Button';
+
+const Todos = ({ onClickShowAddTodo }) => {
   return (
-    <p>To-dos</p>
+    <main>
+      <Button type='' text='Add' onClick={onClickShowAddTodo} />
+      <p>To-dos</p>
+    </main>
   );
 };
 

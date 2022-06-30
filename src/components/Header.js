@@ -1,12 +1,12 @@
 import Button from './Button';
 
-const Header = ({ onClickNotes, onClickTodos }) => {
+const Header = ({ isBtnDisabled, onClickNotes, onClickTodos }) => {
   return (
     <header>
       <h1>Notes & to-dos</h1>
       <div className="tabs">
-        <Button type='' text='Notes' onClick={onClickNotes} />
-        <Button type='' text='To-dos' onClick={onClickTodos} />
+        <Button type={isBtnDisabled ? 'disabled' : ''} text='Notes' onClick={onClickNotes} />
+        <Button type={isBtnDisabled ? 'disabled' : ''} text='To-dos' onClick={onClickTodos} />
       </div>
     </header>
   );
