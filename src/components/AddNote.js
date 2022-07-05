@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from './Button';
 
-const AddNote = ({ onClickAddNoteSave, onClickAddNoteCancel }) => {
+const AddNote = ({ onClickNoteSave, onClickNoteCancel }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -10,9 +10,9 @@ const AddNote = ({ onClickAddNoteSave, onClickAddNoteCancel }) => {
       <label htmlFor="title">Title</label>
       <input type="text" name="title" onChange={e => setTitle(e.target.value)} />
       <label htmlFor="content">Text</label>
-      <input type="text" name="content" onChange={e => setContent(e.target.value)} />
-      <Button type='' text='Save' onClick={() => onClickAddNoteSave(title, content, Date.now())} />
-      <Button type='' text='Cancel' onClick={onClickAddNoteCancel} />
+      <textarea name="content" cols="30" rows="10" onChange={e => setContent(e.target.value)}></textarea>
+      <Button type='' text='Save' onClick={() => onClickNoteSave(title, content, Date.now())} />
+      <Button type='' text='Cancel' onClick={onClickNoteCancel} />
     </main>
   );
 };
