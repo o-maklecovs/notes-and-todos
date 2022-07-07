@@ -57,6 +57,10 @@ function App() {
     setNotes([...updatedNotes]);
     onClickNoteEditCancel();
   };
+  const onClickNoteDelete = id => {
+    const updatedNotes = notes.filter(note => note.id != id);
+    setNotes([...updatedNotes]);
+  };
   const onClickNoteAddCancel = () => {
     setShowAddNote(false);
     setShowNotes(true);
@@ -82,7 +86,7 @@ function App() {
   return (
     <div className="container">
       <Header isBtnDisabled={showAddNote || showEditNote.isVisible || showAddTodo ? true : false} onClickNotes={onClickNotes} onClickTodos={onClickTodos} />
-      {showNotes && <Notes notes={notes} onClickShowAddNote={onClickShowAddNote} onClickShowEditNote={onClickShowEditNote} />}
+      {showNotes && <Notes notes={notes} onClickShowAddNote={onClickShowAddNote} onClickShowEditNote={onClickShowEditNote} onClickNoteDelete={onClickNoteDelete} />}
       {showTodos && <Todos onClickShowAddTodo={onClickShowAddTodo} />}
       {showAddNote && <AddNote onClickNoteSave={onClickNoteAdd} onClickNoteCancel={onClickNoteAddCancel} />}
       {showEditNote.isVisible && <EditNote noteData={showEditNote.noteData} onClickNoteSave={onClickNoteEdit} onClickNoteCancel={onClickNoteEditCancel} />}
