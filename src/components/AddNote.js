@@ -7,7 +7,7 @@ const AddNote = ({ onClickNoteSave, onClickNoteCancel }) => {
 
   return (
     <main>
-      <label htmlFor="title">Title</label>
+      <label htmlFor='title'>Title</label>
       <input type="text" name="title" onChange={e => setTitle(e.target.value)} />
       <label htmlFor="content">Text</label>
       <textarea name="content" cols="30" rows="10" onChange={e => setContent(e.target.value)}></textarea>

@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import Button from './Button';
 
-const AddTodo = ({ onClickAddTodoCancel }) => {
+const AddTodo = ({ onClickTodoAdd, onClickTodoAddCancel }) => {
+  const [task, setTask] = useState('');
+
   return (
     <main>
       <label htmlFor="content">Task</label>
-      <input type="text" name="content" />
-      <Button type='' text='Save' />
-      <Button type='' text='Cancel' onClick={onClickAddTodoCancel} />
+      <input type="text" name="task" onChange={e => setTask(e.target.value)} />
+      <Button type='' text='Save' onClick={() => onClickTodoAdd(task, Date.now(), false)} />
+      <Button type='' text='Cancel' onClick={onClickTodoAddCancel} />
     </main>
   );
 };

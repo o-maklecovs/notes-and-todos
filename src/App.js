@@ -15,11 +15,14 @@ function App() {
   const [showAddTodo, setShowAddTodo] = useState(false);
 
   const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || []);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
   
   const onClickNotes = () => {
     setShowNotes(true);
@@ -78,7 +81,17 @@ function App() {
     setShowAddTodo(true);
     setShowTodos(false);
   };
-  const onClickAddTodoCancel = () => {
+  const onClickTodoAdd = (task, date, checked) => {
+    const newTodo = {
+      id: uuid(),
+      task: task,
+      date: date,
+      checked: checked
+    };
+    setTodos([...todos, newTodo]);
+    onClickTodoAddCancel();
+  };
+  const onClickTodoAddCancel = () => {
     setShowAddTodo(false);
     setShowTodos(true);
   };
@@ -87,10 +100,10 @@ function App() {
     <div className="container">
       <Header isBtnDisabled={showAddNote || showEditNote.isVisible || showAddTodo ? true : false} onClickNotes={onClickNotes} onClickTodos={onClickTodos} />
       {showNotes && <Notes notes={notes} onClickShowAddNote={onClickShowAddNote} onClickShowEditNote={onClickShowEditNote} onClickNoteDelete={onClickNoteDelete} />}
-      {showTodos && <Todos onClickShowAddTodo={onClickShowAddTodo} />}
+      {showTodos && <Todos todos={todos} onClickShowAddTodo={onClickShowAddTodo} />}
       {showAddNote && <AddNote onClickNoteSave={onClickNoteAdd} onClickNoteCancel={onClickNoteAddCancel} />}
       {showEditNote.isVisible && <EditNote noteData={showEditNote.noteData} onClickNoteSave={onClickNoteEdit} onClickNoteCancel={onClickNoteEditCancel} />}
-      {showAddTodo && <AddTodo onClickAddTodoCancel={onClickAddTodoCancel} />}
+      {showAddTodo && <AddTodo onClickTodoAdd={onClickTodoAdd} onClickTodoAddCancel={onClickTodoAddCancel} />}
     </div>
   );
 }
