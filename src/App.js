@@ -95,12 +95,16 @@ function App() {
     setShowAddTodo(false);
     setShowTodos(true);
   };
+  const onClickTodoDelete = id => {
+    const updatedTodos = todos.filter(todo => todo.id != id);
+    setTodos([...updatedTodos]);
+  };
 
   return (
     <div className="container">
       <Header isBtnDisabled={showAddNote || showEditNote.isVisible || showAddTodo ? true : false} onClickNotes={onClickNotes} onClickTodos={onClickTodos} />
       {showNotes && <Notes notes={notes} onClickShowAddNote={onClickShowAddNote} onClickShowEditNote={onClickShowEditNote} onClickNoteDelete={onClickNoteDelete} />}
-      {showTodos && <Todos todos={todos} onClickShowAddTodo={onClickShowAddTodo} />}
+      {showTodos && <Todos todos={todos} onClickShowAddTodo={onClickShowAddTodo} onClickTodoDelete={onClickTodoDelete} />}
       {showAddNote && <AddNote onClickNoteSave={onClickNoteAdd} onClickNoteCancel={onClickNoteAddCancel} />}
       {showEditNote.isVisible && <EditNote noteData={showEditNote.noteData} onClickNoteSave={onClickNoteEdit} onClickNoteCancel={onClickNoteEditCancel} />}
       {showAddTodo && <AddTodo onClickTodoAdd={onClickTodoAdd} onClickTodoAddCancel={onClickTodoAddCancel} />}

@@ -5,7 +5,7 @@ const Todo = ({ todo, onClickTodoEdit, onClickTodoDelete }) => {
     <div className="todo">
       <p>{todo.task}</p>
       <Button type='' text='Edit' />
-      <Button type='' text='Delete' />
+      <Button type='' text='Delete' onClick={() => onClickTodoDelete(todo.id)} />
     </div>
   );
 };
