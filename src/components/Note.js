@@ -1,10 +1,9 @@
 import Button from './Button';
 
-const Note = ({ note, onClickShowEditNote, onClickNoteDelete }) => {
+const Note = ({ note, onClickNoteDelete, onClickShowViewNote }) => {
   return (
-    <div className="note">
+    <div className="note" onClick={() => onClickShowViewNote(note.id)}>
       <p>{note.title}</p>
-      <Button type='' text='Edit' onClick={() => onClickShowEditNote(note.id)} />
       <Button type='' text='Delete' onClick={() => onClickNoteDelete(note.id)} />
     </div>
   );

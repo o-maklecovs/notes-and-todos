@@ -5,6 +5,7 @@ import Notes from './components/Notes';
 import Todos from './components/Todos';
 import AddNote from './components/AddNote';
 import EditNote from './components/EditNote';
+import ViewNote from './components/ViewNote';
 import AddTodo from './components/AddTodo';
 import EditTodo from './components/EditTodo';
 
@@ -12,6 +13,7 @@ function App() {
   const [showNotes, setShowNotes] = useState(true);
   const [showAddNote, setShowAddNote] = useState(false);
   const [showEditNote, setShowEditNote] = useState({ isVisible: false, noteData: {} });
+  const [showViewNote, setShowViewNote] = useState({ isVisible: false, noteData: {} });
   const [showTodos, setShowTodos] = useState(false);
   const [showAddTodo, setShowAddTodo] = useState(false);
   const [showEditTodo, setShowEditTodo] = useState({ isVisible: false, todoData: {} });
@@ -38,7 +40,7 @@ function App() {
     const notesStorage = JSON.parse(localStorage.getItem('notes'));
     const noteData = notesStorage.filter(note => note.id === id);
     setShowEditNote({ isVisible: true, noteData: noteData[0] });
-    setShowNotes(false);
+    setShowViewNote({ isVisible: false, noteData: {} });
   };
   const onClickNoteAdd = (title, content, date) => {
     const newNote = {
@@ -60,7 +62,7 @@ function App() {
       }
     });
     setNotes([...updatedNotes]);
-    onClickNoteEditCancel();
+    onClickNoteEditCancel({ id: id, title: title, content: content, date: date });
   };
   const onClickNoteDelete = id => {
     const updatedNotes = notes.filter(note => note.id != id);
@@ -70,10 +72,19 @@ function App() {
     setShowAddNote(false);
     setShowNotes(true);
   };
-  const onClickNoteEditCancel = () => {
+  const onClickNoteEditCancel = noteData => {
     setShowEditNote({ isVisible: false, noteData: {} });
-    setShowNotes(true);
+    setShowViewNote({ isVisible: true, noteData: noteData});
   };
+  const onClickShowViewNote = id => {
+    const selectedNote = notes.filter(note => note.id === id);
+    setShowViewNote({ isVisible: true, noteData: selectedNote[0] });
+    setShowNotes(false);
+  }
+  const onClickViewNoteBack = () => {
+    setShowViewNote({ isVisible: false, noteData: {} });
+    setShowNotes(true);
+  }
 
   const onClickTodos = () => {
     setShowTodos(true);
@@ -136,10 +147,11 @@ function App() {
   return (
     <div className="container">
       <Header isBtnDisabled={showAddNote || showEditNote.isVisible || showAddTodo ? true : false} onClickNotes={onClickNotes} onClickTodos={onClickTodos} />
-      {showNotes && <Notes notes={notes} onClickShowAddNote={onClickShowAddNote} onClickShowEditNote={onClickShowEditNote} onClickNoteDelete={onClickNoteDelete} />}
+      {showNotes && <Notes notes={notes} onClickShowAddNote={onClickShowAddNote} onClickNoteDelete={onClickNoteDelete} onClickShowViewNote={onClickShowViewNote} />}
       {showTodos && <Todos todos={todos} onClickShowAddTodo={onClickShowAddTodo} onClickShowEditTodo={onClickShowEditTodo} onClickTodoCheck={onClickTodoCheck} onClickTodoDelete={onClickTodoDelete} />}
       {showAddNote && <AddNote onClickNoteSave={onClickNoteAdd} onClickNoteCancel={onClickNoteAddCancel} />}
       {showEditNote.isVisible && <EditNote noteData={showEditNote.noteData} onClickNoteSave={onClickNoteEdit} onClickNoteCancel={onClickNoteEditCancel} />}
+      {showViewNote.isVisible && <ViewNote noteData={showViewNote.noteData} onClickViewNoteBack={onClickViewNoteBack} onClickShowEditNote={onClickShowEditNote} />}
       {showAddTodo && <AddTodo onClickTodoSave={onClickTodoAdd} onClickTodoCancel={onClickTodoAddCancel} />}
       {showEditTodo.isVisible && <EditTodo todoData={showEditTodo.todoData} onClickTodoSave={onClickTodoEdit} onClickTodoCancel={onClickTodoEditCancel} />}
     </div>

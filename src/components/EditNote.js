@@ -12,7 +12,7 @@ const EditNote = ({ noteData, onClickNoteSave, onClickNoteCancel }) => {
       <label htmlFor="content">Text</label>
       <textarea name="content" cols="30" rows="10" value={content} onChange={e => setContent(e.target.value)}></textarea>
       <Button type='' text='Save' onClick={() => onClickNoteSave(noteData.id, title, content, Date.now())} />
-      <Button type='' text='Cancel' onClick={onClickNoteCancel} />
+      <Button type='' text='Cancel' onClick={() => onClickNoteCancel(noteData)} />
     </main>
   );
 };
