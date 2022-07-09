@@ -17,6 +17,7 @@ function App() {
   const [showTodos, setShowTodos] = useState(false);
   const [showAddTodo, setShowAddTodo] = useState(false);
   const [showEditTodo, setShowEditTodo] = useState({ isVisible: false, todoData: {} });
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
   const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || []);
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
@@ -27,6 +28,12 @@ function App() {
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
+  useEffect(() => {
+    if (showAddNote || showEditNote.isVisible || showViewNote.isVisible || showAddTodo || showEditTodo.isVisible)
+      setIsBtnDisabled(true);
+    else
+      setIsBtnDisabled(false);
+  }, [showAddNote, showEditNote, showViewNote, showAddTodo, showEditTodo]);
   
   const onClickNotes = () => {
     setShowNotes(true);
@@ -65,7 +72,7 @@ function App() {
     onClickNoteEditCancel({ id: id, title: title, content: content, date: date });
   };
   const onClickNoteDelete = id => {
-    const updatedNotes = notes.filter(note => note.id != id);
+    const updatedNotes = notes.filter(note => note.id !== id);
     setNotes([...updatedNotes]);
   };
   const onClickNoteAddCancel = () => {
@@ -140,13 +147,13 @@ function App() {
     setTodos([...updatedTodos]);
   };
   const onClickTodoDelete = id => {
-    const updatedTodos = todos.filter(todo => todo.id != id);
+    const updatedTodos = todos.filter(todo => todo.id !== id);
     setTodos([...updatedTodos]);
   };
 
   return (
     <div className="container">
-      <Header isBtnDisabled={showAddNote || showEditNote.isVisible || showAddTodo ? true : false} onClickNotes={onClickNotes} onClickTodos={onClickTodos} />
+      <Header isBtnDisabled={isBtnDisabled} onClickNotes={onClickNotes} onClickTodos={onClickTodos} />
       {showNotes && <Notes notes={notes} onClickShowAddNote={onClickShowAddNote} onClickNoteDelete={onClickNoteDelete} onClickShowViewNote={onClickShowViewNote} />}
       {showTodos && <Todos todos={todos} onClickShowAddTodo={onClickShowAddTodo} onClickShowEditTodo={onClickShowEditTodo} onClickTodoCheck={onClickTodoCheck} onClickTodoDelete={onClickTodoDelete} />}
       {showAddNote && <AddNote onClickNoteSave={onClickNoteAdd} onClickNoteCancel={onClickNoteAddCancel} />}
