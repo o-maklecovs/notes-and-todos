@@ -103,13 +103,13 @@ function App() {
     setShowEditTodo({ isVisible: true, todoData: todoData[0] });
     setShowTodos(false);
   };
-  const onClickTodoEdit = (id, task, date, checked) => {
+  const onClickTodoEdit = (id, task, date, isChecked) => {
     const updatedTodos = todos;
     updatedTodos.forEach(todo => {
       if (todo.id === id) {
         todo.task = task;
         todo.date = date;
-        todo.checked = checked;
+        todo.isChecked = isChecked;
       }
     });
     setTodos([...updatedTodos]);
@@ -119,6 +119,15 @@ function App() {
     setShowEditTodo({ isVisible: false, todoData: {} });
     setShowTodos(true);
   }
+  const onClickTodoCheck = (id, isChecked) => {
+    const updatedTodos = todos;
+    updatedTodos.forEach(todo => {
+      if (todo.id === id) {
+        todo.isChecked = isChecked;
+      }
+    });
+    setTodos([...updatedTodos]);
+  };
   const onClickTodoDelete = id => {
     const updatedTodos = todos.filter(todo => todo.id != id);
     setTodos([...updatedTodos]);
@@ -128,7 +137,7 @@ function App() {
     <div className="container">
       <Header isBtnDisabled={showAddNote || showEditNote.isVisible || showAddTodo ? true : false} onClickNotes={onClickNotes} onClickTodos={onClickTodos} />
       {showNotes && <Notes notes={notes} onClickShowAddNote={onClickShowAddNote} onClickShowEditNote={onClickShowEditNote} onClickNoteDelete={onClickNoteDelete} />}
-      {showTodos && <Todos todos={todos} onClickShowAddTodo={onClickShowAddTodo} onClickShowEditTodo={onClickShowEditTodo} onClickTodoDelete={onClickTodoDelete} />}
+      {showTodos && <Todos todos={todos} onClickShowAddTodo={onClickShowAddTodo} onClickShowEditTodo={onClickShowEditTodo} onClickTodoCheck={onClickTodoCheck} onClickTodoDelete={onClickTodoDelete} />}
       {showAddNote && <AddNote onClickNoteSave={onClickNoteAdd} onClickNoteCancel={onClickNoteAddCancel} />}
       {showEditNote.isVisible && <EditNote noteData={showEditNote.noteData} onClickNoteSave={onClickNoteEdit} onClickNoteCancel={onClickNoteEditCancel} />}
       {showAddTodo && <AddTodo onClickTodoSave={onClickTodoAdd} onClickTodoCancel={onClickTodoAddCancel} />}
