@@ -18,6 +18,8 @@ function App() {
   const [showAddTodo, setShowAddTodo] = useState(false);
   const [showEditTodo, setShowEditTodo] = useState({ isVisible: false, todoData: {} });
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+  const [isNotesActive, setIsNotesActive] = useState(true);
+  const [isTodosActive, setIsTodosActive] = useState(false);
 
   const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || []);
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
@@ -38,6 +40,8 @@ function App() {
   const onClickNotes = () => {
     setShowNotes(true);
     setShowTodos(false);
+    setIsNotesActive(true);
+    setIsTodosActive(false);
   };
   const onClickShowAddNote = () => {
     setShowAddNote(true);
@@ -96,6 +100,8 @@ function App() {
   const onClickTodos = () => {
     setShowTodos(true);
     setShowNotes(false);
+    setIsTodosActive(true);
+    setIsNotesActive(false);
   };
   const onClickShowAddTodo = () => {
     setShowAddTodo(true);
@@ -153,7 +159,7 @@ function App() {
 
   return (
     <div className="container">
-      <Header isBtnDisabled={isBtnDisabled} onClickNotes={onClickNotes} onClickTodos={onClickTodos} />
+      <Header isBtnDisabled={isBtnDisabled} onClickNotes={onClickNotes} onClickTodos={onClickTodos} isNotesActive={isNotesActive} isTodosActive={isTodosActive} />
       {showNotes && <Notes notes={notes} onClickShowAddNote={onClickShowAddNote} onClickNoteDelete={onClickNoteDelete} onClickShowViewNote={onClickShowViewNote} />}
       {showTodos && <Todos todos={todos} onClickShowAddTodo={onClickShowAddTodo} onClickShowEditTodo={onClickShowEditTodo} onClickTodoCheck={onClickTodoCheck} onClickTodoDelete={onClickTodoDelete} />}
       {showAddNote && <AddNote onClickNoteSave={onClickNoteAdd} onClickNoteCancel={onClickNoteAddCancel} />}
