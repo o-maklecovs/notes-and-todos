@@ -25,6 +25,9 @@ button {
 .disabled {
   pointer-events: none;
 }
+.notes {
+  margin-top: 0.5em;
+}
 .btn-rect {
   color: #fff;
   background: #f1f;
@@ -46,9 +49,40 @@ button {
 .btn-circ:hover {
   background: #f4f;
 }
+.btn-circ-del {
+  color: #fff;
+  background: #f22;
+  border: none;
+  border-radius: 50%;
+  font-size: 1em;
+  padding: 0.5em;
+}
+.btn-circ-del:hover {
+  background: #f55;
+}
+.del-wrap {
+  display: flex;
+  align-items: center;
+}
 .empty {
   font-style: italic;
   color: #aaa;
+}
+.note {
+  margin-bottom: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: #ddd;
+  border-radius: 4px;
+  padding: 0.5em;
+}
+.note p {
+  margin: 0;
+}
+.date {
+  color: #666;
 }
 main {
   margin-top: 1em;

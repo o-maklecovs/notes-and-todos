@@ -1,10 +1,16 @@
-import Button from './Button';
+import { FaTimes } from 'react-icons/fa';
 
 const Note = ({ note, onClickNoteDelete, onClickShowViewNote }) => {
+
   return (
     <div className="note">
-      <p onClick={() => onClickShowViewNote(note.id)}>{note.title}</p>
-      <Button type='' text='Delete' onClick={() => onClickNoteDelete(note.id)} />
+      <div onClick={() => onClickShowViewNote(note.id)}>
+        <p>{note.title}</p>
+        <p className="date">{note.date}</p>
+      </div>
+      <div>
+        <FaTimes className='btn-circ-del del-wrap' onClick={() => onClickNoteDelete(note.id)} />
+      </div>
     </div>
   );
 };

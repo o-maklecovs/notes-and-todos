@@ -1,5 +1,4 @@
 import Note from './Note';
-import Button from './Button';
 import { FaPlus } from 'react-icons/fa';
 
 const Notes = ({ notes, onClickShowAddNote, onClickNoteDelete, onClickShowViewNote }) => {

@@ -54,22 +54,24 @@ function App() {
     setShowViewNote({ isVisible: false, noteData: {} });
   };
   const onClickNoteAdd = (title, content, date) => {
+    const rawDate = new Date(date);
     const newNote = {
       id: uuid(),
       title: title,
       content: content,
-      date: date
+      date: rawDate.toLocaleString()
     };
     setNotes([...notes, newNote]);
     onClickNoteAddCancel();
   };
   const onClickNoteEdit = (id, title, content, date) => {
+    const rawDate = new Date(date);
     const updatedNotes = notes;
     updatedNotes.forEach(note => {
       if (note.id === id) {
         note.title = title;
         note.content = content;
-        note.date = date;
+        note.date = rawDate.toLocaleString();
       }
     });
     setNotes([...updatedNotes]);
@@ -108,10 +110,11 @@ function App() {
     setShowTodos(false);
   };
   const onClickTodoAdd = (task, date, isChecked) => {
+    const rawDate = new Date(date);
     const newTodo = {
       id: uuid(),
       task: task,
-      date: date,
+      date: rawDate.toLocaleString(),
       isChecked: isChecked
     };
     setTodos([...todos, newTodo]);
@@ -128,11 +131,12 @@ function App() {
     setShowTodos(false);
   };
   const onClickTodoEdit = (id, task, date, isChecked) => {
+    const rawDate = new Date(date);
     const updatedTodos = todos;
     updatedTodos.forEach(todo => {
       if (todo.id === id) {
         todo.task = task;
-        todo.date = date;
+        todo.date = rawDate.toLocaleString();
         todo.isChecked = isChecked;
       }
     });
