@@ -38,26 +38,26 @@ button {
 .btn-rect:hover {
   background: #f4f;
 }
-.btn-circ {
+.btn-sqr {
   color: #fff;
   background: #f1f;
   border: none;
-  border-radius: 50%;
+  border-radius: 4px;
   font-size: 1.4em;
   padding: 0.5em;
 }
-.btn-circ:hover {
+.btn-sqr:hover {
   background: #f4f;
 }
-.btn-circ-del {
+.btn-del {
   color: #fff;
   background: #f22;
   border: none;
-  border-radius: 50%;
+  border-radius: 4px;
   font-size: 1em;
   padding: 0.5em;
 }
-.btn-circ-del:hover {
+.btn-del:hover {
   background: #f55;
 }
 .del-wrap {
@@ -84,14 +84,14 @@ main {
 .note p {
   margin: 0;
 }
-.date {
+.notes-list-date {
   color: #666;
 }
-.note-add-form {
+.note-form {
   display: flex;
   flex-direction: column;
 }
-.note-add-form input, textarea {
+.note-form input, .note-form textarea {
   margin-bottom: 1em;
   font-family: sans-serif;
   font-size: 1em;
@@ -99,8 +99,20 @@ main {
   border-radius: 4px;
   padding: 0.3em;
 }
-.note-add-form-controls {
+.note-form-controls {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+.note-view-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.note-view-title {
+  margin-bottom: 0;
+}
+.note-view-date {
+  margin-top: 0;
+  color: #666;
 }

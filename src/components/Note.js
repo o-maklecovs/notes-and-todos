@@ -6,10 +6,10 @@ const Note = ({ note, onClickNoteDelete, onClickShowViewNote }) => {
     <div className="note">
       <div onClick={() => onClickShowViewNote(note.id)}>
         <p>{note.title}</p>
-        <p className="date">{note.date}</p>
+        <p className="notes-list-date">{note.date}</p>
       </div>
       <div>
-        <FaTimes className='btn-circ-del del-wrap' onClick={() => onClickNoteDelete(note.id)} />
+        <FaTimes className='btn-del del-wrap' onClick={() => onClickNoteDelete(note.id)} />
       </div>
     </div>
   );
