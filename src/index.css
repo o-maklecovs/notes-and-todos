@@ -68,6 +68,9 @@ button {
   font-style: italic;
   color: #aaa;
 }
+main {
+  margin-top: 1em;
+}
 .note {
   margin-bottom: 0.5em;
   display: flex;
@@ -84,6 +87,20 @@ button {
 .date {
   color: #666;
 }
-main {
-  margin-top: 1em;
+.note-add-form {
+  display: flex;
+  flex-direction: column;
+}
+.note-add-form input, textarea {
+  margin-bottom: 1em;
+  font-family: sans-serif;
+  font-size: 1em;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 0.3em;
+}
+.note-add-form-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
