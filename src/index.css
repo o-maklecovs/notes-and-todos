@@ -20,12 +20,36 @@ button {
   border: none;
 }
 .tabs button.selected {
-  border-bottom: 4px #f4f solid;
+  border-bottom: 4px #f1f solid;
 }
 .disabled {
   pointer-events: none;
 }
+.btn-rect {
+  color: #fff;
+  background: #f1f;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+}
+.btn-rect:hover {
+  background: #f4f;
+}
+.btn-circ {
+  color: #fff;
+  background: #f1f;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.4em;
+  padding: 0.5em;
+}
+.btn-circ:hover {
+  background: #f4f;
+}
 .empty {
   font-style: italic;
   color: #aaa;
+}
+main {
+  margin-top: 1em;
 }
