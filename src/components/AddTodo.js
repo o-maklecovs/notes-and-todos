@@ -6,10 +6,14 @@ const AddTodo = ({ onClickTodoSave, onClickTodoCancel }) => {
 
   return (
     <main>
-      <label htmlFor="content">Task</label>
-      <input type="text" name="task" onChange={e => setTask(e.target.value)} />
-      <Button type='' text='Save' onClick={() => onClickTodoSave(task, Date.now(), false)} />
-      <Button type='' text='Cancel' onClick={onClickTodoCancel} />
+      <div className="todo-form">
+        <label htmlFor="content">Task</label>
+        <input type="text" name="task" onChange={e => setTask(e.target.value)} />
+        <div className="todo-form-controls">
+          <Button type='btn-rect' text='Save' onClick={() => onClickTodoSave(task, Date.now(), false)} />
+          <Button type='btn-rect' text='Cancel' onClick={onClickTodoCancel} />
+        </div>
+      </div>
     </main>
   );
 };

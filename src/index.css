@@ -91,7 +91,7 @@ main {
   display: flex;
   flex-direction: column;
 }
-.note-form input, .note-form textarea {
+.note-form input, .note-form textarea, .todo-form input {
   margin-bottom: 1em;
   font-family: sans-serif;
   font-size: 1em;
@@ -99,7 +99,7 @@ main {
   border-radius: 4px;
   padding: 0.3em;
 }
-.note-form-controls {
+.note-form-controls, .todo-form-controls {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -141,4 +141,8 @@ main {
 .checked {
   color: #666;
   text-decoration: line-through;
+}
+.todo-form {
+  display: flex;
+  flex-direction: column;
 }
