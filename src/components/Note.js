@@ -4,7 +4,7 @@ const Note = ({ note, onClickNoteDelete, onClickShowViewNote }) => {
 
   return (
     <div className="note">
-      <div onClick={() => onClickShowViewNote(note.id)}>
+      <div className="note-data" onClick={() => onClickShowViewNote(note.id)}>
         <p>{note.title}</p>
         <p className="notes-list-date">{note.date}</p>
       </div>

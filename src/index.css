@@ -10,6 +10,9 @@ button {
   font-family: sans-serif;
   font-size: 1em;
 }
+button, .btn-rect, .btn-sqr, .btn-del, .btn-edit, input[type=checkbox], .note-data {
+  cursor: pointer;
+}
 .tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -145,4 +148,11 @@ main {
 .todo-form {
   display: flex;
   flex-direction: column;
+}
+
+@media screen and (min-width: 450px) {
+  .container {
+    margin: auto;
+    width: 450px;
+  }
 }
