@@ -8,6 +8,7 @@ import EditNote from './components/EditNote';
 import ViewNote from './components/ViewNote';
 import AddTodo from './components/AddTodo';
 import EditTodo from './components/EditTodo';
+import Error from './components/Error';
 
 function App() {
   const [showNotes, setShowNotes] = useState(true);
@@ -20,6 +21,7 @@ function App() {
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const [isNotesActive, setIsNotesActive] = useState(true);
   const [isTodosActive, setIsTodosActive] = useState(false);
+  const [error, setError] = useState({ isError: false, errorMsg: '' });
 
   const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || []);
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
@@ -54,28 +56,36 @@ function App() {
     setShowViewNote({ isVisible: false, noteData: {} });
   };
   const onClickNoteAdd = (title, content, date) => {
-    const rawDate = new Date(date);
-    const newNote = {
-      id: uuid(),
-      title: title,
-      content: content,
-      date: rawDate.toLocaleString()
-    };
-    setNotes([...notes, newNote]);
-    onClickNoteAddCancel();
+    if (title && content) {
+      const rawDate = new Date(date);
+      const newNote = {
+        id: uuid(),
+        title: title,
+        content: content,
+        date: rawDate.toLocaleString()
+      };
+      setNotes([...notes, newNote]);
+      onClickNoteAddCancel();
+    } else {
+      setError({ isError: true, errorMsg: 'Please fill out all the fields' });
+    }
   };
   const onClickNoteEdit = (id, title, content, date) => {
-    const rawDate = new Date(date);
-    const updatedNotes = notes;
-    updatedNotes.forEach(note => {
-      if (note.id === id) {
-        note.title = title;
-        note.content = content;
-        note.date = rawDate.toLocaleString();
-      }
-    });
-    setNotes([...updatedNotes]);
-    onClickNoteEditCancel({ id: id, title: title, content: content, date: date });
+    if (title && content) {
+      const rawDate = new Date(date);
+      const updatedNotes = notes;
+      updatedNotes.forEach(note => {
+        if (note.id === id) {
+          note.title = title;
+          note.content = content;
+          note.date = rawDate.toLocaleString();
+        }
+      });
+      setNotes([...updatedNotes]);
+      onClickNoteEditCancel({ id: id, title: title, content: content, date: date });
+    } else {
+      setError({ isError: true, errorMsg: 'Please fill out all the fields' });
+    }
   };
   const onClickNoteDelete = id => {
     const updatedNotes = notes.filter(note => note.id !== id);
@@ -110,15 +120,19 @@ function App() {
     setShowTodos(false);
   };
   const onClickTodoAdd = (task, date, isChecked) => {
-    const rawDate = new Date(date);
-    const newTodo = {
-      id: uuid(),
-      task: task,
-      date: rawDate.toLocaleString(),
-      isChecked: isChecked
-    };
-    setTodos([...todos, newTodo]);
-    onClickTodoAddCancel();
+    if (task) {
+      const rawDate = new Date(date);
+      const newTodo = {
+        id: uuid(),
+        task: task,
+        date: rawDate.toLocaleString(),
+        isChecked: isChecked
+      };
+      setTodos([...todos, newTodo]);
+      onClickTodoAddCancel();
+    } else {
+      setError({ isError: true, errorMsg: 'Please fill out all the fields' });
+    }
   };
   const onClickTodoAddCancel = () => {
     setShowAddTodo(false);
@@ -131,17 +145,21 @@ function App() {
     setShowTodos(false);
   };
   const onClickTodoEdit = (id, task, date, isChecked) => {
-    const rawDate = new Date(date);
-    const updatedTodos = todos;
-    updatedTodos.forEach(todo => {
-      if (todo.id === id) {
-        todo.task = task;
-        todo.date = rawDate.toLocaleString();
-        todo.isChecked = isChecked;
-      }
-    });
-    setTodos([...updatedTodos]);
-    onClickTodoEditCancel();
+    if (task) {
+      const rawDate = new Date(date);
+      const updatedTodos = todos;
+      updatedTodos.forEach(todo => {
+        if (todo.id === id) {
+          todo.task = task;
+          todo.date = rawDate.toLocaleString();
+          todo.isChecked = isChecked;
+        }
+      });
+      setTodos([...updatedTodos]);
+      onClickTodoEditCancel();
+    } else {
+      setError({ isError: true, errorMsg: 'Please fill out all the fields' });
+    }
   };
   const onClickTodoEditCancel = () => {
     setShowEditTodo({ isVisible: false, todoData: {} });
@@ -161,6 +179,10 @@ function App() {
     setTodos([...updatedTodos]);
   };
 
+  const onClickCloseError = () => {
+    setError({ isError: false, errorMsg: '' });
+  };
+
   return (
     <div className="container">
       <Header isBtnDisabled={isBtnDisabled} onClickNotes={onClickNotes} onClickTodos={onClickTodos} isNotesActive={isNotesActive} isTodosActive={isTodosActive} />
@@ -171,6 +193,7 @@ function App() {
       {showViewNote.isVisible && <ViewNote noteData={showViewNote.noteData} onClickViewNoteBack={onClickViewNoteBack} onClickShowEditNote={onClickShowEditNote} />}
       {showAddTodo && <AddTodo onClickTodoSave={onClickTodoAdd} onClickTodoCancel={onClickTodoAddCancel} />}
       {showEditTodo.isVisible && <EditTodo todoData={showEditTodo.todoData} onClickTodoSave={onClickTodoEdit} onClickTodoCancel={onClickTodoEditCancel} />}
+      {error.isError && <Error errorMsg={error.errorMsg} onClickCloseError={onClickCloseError} />}
     </div>
   );
 }
